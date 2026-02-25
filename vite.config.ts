@@ -3,9 +3,13 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  // Asegúrate de que no haya un "base" extraño aquí
-  base: '/', 
   build: {
-    outDir: 'dist',
-  }
+    // Esto evita que el build se cuelgue intentando optimizar de más
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
+  },
 })
